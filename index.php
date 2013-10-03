@@ -91,12 +91,15 @@ function restaurar2() {
                  <tr>
                      <td><h3>Usuario:</h3></td>
                      <td><input type="text" size="25" name="user" onfocus="restaurar()"/></td>
+                     
                      <td><p id="aviso"></p></td>
                 </tr>
                 <tr>
                       <td><h3>Contraseña:</h3></td>
+
                     <td><input type="password" size="25" name="pass" onfocus="restaurar2()"/></td>
                     <td><p id="aviso2"></p></td>
+
                 </tr>
             </table>
             
