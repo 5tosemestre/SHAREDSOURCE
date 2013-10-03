@@ -1,4 +1,4 @@
-<?php
+		<?php
 include("seguridad.php");
 include("conexion.php");
 
@@ -8,11 +8,11 @@ $fecha=$_REQUEST['fecha'];
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 
-$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
-$listado = mysql_query($query) or die(mysql_error());   
+			$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
+		$listado = mysql_query($query) or die(mysql_error().);   
 ?>
 
-<html>
+		<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />

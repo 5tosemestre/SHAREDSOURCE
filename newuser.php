@@ -1,4 +1,4 @@
-<html>
+﻿		<html>
 <?php
 include("seguridad.php");
 ?>
@@ -10,7 +10,7 @@ include("seguridad.php");
     <meta name="author" lang="en" content="All: Your name [www.url.com]; e-mail: info@url.com" />
     <meta name="copyright" lang="en" content="Webdesign: Nuvio [www.nuvio.cz]; e-mail: ahoj@nuvio.cz" />
 
-    <meta name="description" content="..." />
+    				<meta name="description" content="..." />
     <meta name="keywords" content="..." />
 
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/reset.css" />
