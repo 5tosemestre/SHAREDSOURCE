@@ -1,18 +1,3 @@
-<?php
-include("seguridad.php");
-include("conexion.php");
-
-$valor1=$_SESSION["k_username"];
-$fecha=$_REQUEST['fecha'];
-
-$conexion= mysql_connect($host,$user,$pw);
-mysql_select_db($db,$conexion);
-
-$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
-$listado = mysql_query($query) or die(mysql_error());   
-?>
-
-<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -27,7 +12,7 @@ $listado = mysql_query($query) or die(mysql_error());
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/main.css" />
     <!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="css/main-msie.css" /><![endif]-->
-    <link rel="stylesheet" media="screen,projection" type="text/css" href="css/estilot.css" />
+    <link rel="stylesheet" media="screen,projection" type="text/css" href="css/style.css" />
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Segunda Consulta</title>
@@ -45,7 +30,7 @@ $listado = mysql_query($query) or die(mysql_error());
 
         <!-- Navigation -->
         <div id="nav">
-             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
+            <a href="index.php" id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
   
         </div> <!-- /nav -->
 
@@ -58,7 +43,6 @@ $listado = mysql_query($query) or die(mysql_error());
             <li id="tray-active"><a href="main.php">Bienvenidos</a></li> <!-- Active page -->
             <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
             <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
-              <li><a href="newuser.php">Nuevo Usuario</a></li>
         </ul>
         
         <!-- Search -->
@@ -75,36 +59,43 @@ $listado = mysql_query($query) or die(mysql_error());
     </div> <!-- /tray -->
 
     <!-- Promo -->
-    
+    <div id="col-top"></div>
     <div id="col" class="box">
  <form>
-        
+        <div id="col-text">
             
-<center>
+
             <table border="5">
             <tr>
                 <th>Id</th>
-                 
+                 <th> </th>
+                 <th> </th>
                 <th>Hora</th>
-                
+                <th> </th>
                 <th>Nombre</th>
-                <th>Editar</th>
             </tr>
             <tr>
-<?php while($registro = mysql_fetch_assoc($listado)){?>
-    <tr>
-     <td><p><?php echo $registro['id'];?></p></td>
-      <td></br><?php echo $registro['hora'];?></td>
-       <td></br><?php echo $registro['nombre'];?></td>
-        <td></br><a href = "UpdateVista.php?id=<?php echo $registro['id'];?>">Editar</a></td>
+<?php
+include("conexion.php");
+include("seguridad.php");
+$valor1=$_SESSION["k_username"];
+$fecha=$_REQUEST['fecha'];
 
-    </tr>
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
 
-<?php } ?>
+$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
+$listado = mysql_query($query) or die(mysql_error());   
+while($registro = mysql_fetch_assoc($listado))
+{
+   echo "</tr><tr><td><p>".$registro['id']."</p><td></td><td></td><td>".$registro['hora']."<td></td><td></td><td>".$registro['nombre']."</td>";
+}
 
+?>
+<td></td>
 </tr>
             
-        </table></center>
+        </table>
         </div> <!-- /col-text -->
     
     </div> <!-- /col -->
