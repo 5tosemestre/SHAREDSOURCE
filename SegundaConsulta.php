@@ -1,3 +1,16 @@
+<?php
+include("conexion.php");
+include("seguridad.php");
+$valor1=$_SESSION["k_username"];
+$fecha=$_REQUEST['fecha'];
+
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+
+$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
+$listado = mysql_query($query) or die(mysql_error()); 
+?>
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -67,28 +80,25 @@
 
             <table border="5">
             <tr>
+                <<th>ID</th>
+                <th> </th>
                 <th>Hora</th>
-                
+                <th> </th>
                 <th>Nombre</th>
             </tr>
             <tr>
-<?php
-include("conexion.php");
-$fecha=$_REQUEST['fecha'];
-$conexion= mysql_connect($host,$user,$pw);
-mysql_select_db($db,$conexion);
-
-$query="SELECT hora, nombre from prueba where fecha='$fecha' order by hora desc;";
-$listado = mysql_query($query) or die(mysql_error());   
-while($registro = mysql_fetch_assoc($listado))
-{
-   echo "</tr><tr><td>".$registro['hora']."<td></td><td><p>".$registro['nombre']."</p></td>";
-}
-
-?>
-
-</tr>
             
+<?php while($registro = mysql_fetch_assoc($listado)){?>
+ <tr>
+   <td><p><?php echo $registro['id']; ?></p></td>
+   <td></td>
+   <td><?php echo $registro['hora']; ?></td>
+   <td></td>
+   <td><?php echo $registro['nombre']; ?></td>
+   <td></td>
+   <td><a href="UpdateVista.php?id=<?php echo $registro['id']; ?>">Editar</a></td>
+</tr>
+<?php } ?>      
         </table>
         </div> <!-- /col-text -->
     
