@@ -1,3 +1,7 @@
+<html>
+<?php
+include("seguridad.php");
+?>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -30,7 +34,7 @@
 
         <!-- Navigation -->
         <div id="nav">
-            <a href="index.php" id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
+             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
       
         </div> <!-- /nav -->
 
@@ -62,9 +66,9 @@
     
     <div id="col" class="box">
  <form>
-        <center>
+    
             
-
+<center>
             <table border="2">
             <tr>
                 <th>Fecha</th>
@@ -75,20 +79,23 @@
                 <?php
 include("conexion.php");
 
-
 function fechaesp($date) {
     $dia = explode("-", $date, 3);
     $year = $dia[0];
     $month = (string)(int)$dia[1];
     $day = (string)(int)$dia[2];
     
-    $dias = array("domingo","lunes","martes","mi&eacute;rcoles" ,"jueves","viernes","s&aacute;bado");
+    $dias = array("Domingo","Lunes","Martes","Mi&eacute;rcoles" ,"Jueves","Viernes","S&aacute;bado");
     $tomadia = $dias[intval((date("w",mktime(0,0,0,$month,$day,$year))))];
  
-    $meses = array("", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre");
+    $meses = array("", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
     
-    return $tomadia.", ".$day." de ".$meses[$month]." de ".$year;
+    return $day." de ".$meses[$month]." del ".$year;
 }
+
+
+
+
 
 
 
@@ -96,25 +103,35 @@ function fechaesp($date) {
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 
+
 $arreglo=array();
 $cont=0;
+$valor=$_SESSION["k_username"];
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+
 
 $query="SELECT fecha,count(*) from prueba group by fecha order by fecha desc;";
 $listado = mysql_query($query) or die(mysql_error());   
 while($registro = mysql_fetch_assoc($listado))
 {
+ //  echo "</tr><tr><td><p>".$registro['fecha']."</p><td>".$registro['count(*)'].
+  //"</td>";
 
-  $arreglo[$cont]=$registro["fecha"];
-   echo "<tr><td><p>".fechaesp($arreglo[$cont])."</p></td><td>".$registro['count(*)']."</td>";
-   $cont++;
+    $arreglo[$cont]=$registro["fecha"];
+   //echo "<tr><td><p id=".$arreglo[$cont]." value=".$arreglo[$cont].">".fechaesp($arreglo[$cont])."</p></td><td>".$registro['count(*)']."</td>";
+   echo "</td><tr><td><p id=".$arreglo[$cont]." value=".$arreglo[$cont].">".fechaesp($arreglo[$cont])."</p></td><td></br>".$registro['count(*)'];
+   
+
+   $cont++;   
 
 }
 
 ?>
 
 </tr>
-</table>
- </center>           
+</table></center>
+            
                    </div> <!-- /col-text -->
     
     </div> <!-- /col -->

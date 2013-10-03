@@ -40,6 +40,7 @@ if(trim($users) != "" && trim($pas) != "")
 	mysql_free_result($result);
 }else{
 	 
+
 	echo 'Debe especificar un usuario y password';
 	header("location:index.php");
 }
