@@ -1,10 +1,10 @@
-﻿<html>
+<html>
 <?php
 //include("seguridad.php");
 ?>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-   				 <meta http-equiv="content-language" content="en" />
+    <meta http-equiv="content-language" content="en" />
     <meta name="robots" content="all,follow" />
 
     <meta name="author" lang="en" content="All: Your name [www.url.com]; e-mail: info@url.com" />
