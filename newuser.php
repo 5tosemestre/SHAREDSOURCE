@@ -20,6 +20,63 @@ include("seguridad.php");
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Nuevo C&oacutedigo</title>
+
+
+   <script type="text/javascript">
+function comprobar() { 
+         var nombre = document.tabla.nombre;
+         var apellido = document.tabla.pasword;
+         var nic = document.tabla.nick;
+         var roles = document.tabla.rol;
+         var aviso = document.getElementById("aviso");
+         var aviso2 = document.getElementById("aviso2");
+         var aviso3 = document.getElementById("aviso3");
+         var aviso4 = document.getElementById("aviso4");
+
+         aviso.innerHTML = ""
+         aviso2.innerHTML = ""
+         aviso3.innerHTML = ""
+         aviso4.innerHTML = ""
+         var enviar = "si"
+         if (nombre.value == "" || nombre.value.indexOf(" ") == 0) {
+            var texto = "Es obligatorio introducir el nombre."  
+            aviso.innerHTML += texto
+            enviar = "no"
+            }
+         if (apellido.value == "" || apellido.value.indexOf(" ") == 0 ) {
+            var texto = "Es obligatorio introducir la Contraseña."  
+            aviso2.innerHTML += texto
+            enviar = "no"
+            }
+        if (nic.value == "" || nic.value.indexOf(" ") == 0 ) {
+            var texto = "Es obligatorio introducir el nick."  
+            aviso3.innerHTML += texto
+            enviar = "no"
+            }
+        if (roles.value == 0) {
+            var texto = " Es obligatorio Elejir un Rol."  
+            aviso4.innerHTML += texto
+            enviar = "no"
+            }
+         if (enviar == "no") {return false}
+         }
+function restaurar() {
+         var aviso = document.getElementById("aviso");
+         aviso.innerHTML = ""
+         }
+function restaurar2() {
+         var aviso2 = document.getElementById("aviso2");
+         aviso2.innerHTML = ""
+         }
+function restaurar3() {
+         var aviso3 = document.getElementById("aviso3");
+         aviso3.innerHTML = ""
+         }
+function restaurar4() {
+         var aviso4 = document.getElementById("aviso4");
+         aviso4.innerHTML = ""
+         }
+</script>
     
 </head>
 
@@ -55,7 +112,7 @@ include("seguridad.php");
         <div id="search" class="box">
             <form action="#" method="get">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" value="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -68,44 +125,38 @@ include("seguridad.php");
  
     <div id="col" class="box">
 
-
- <form action="insertarUs.php" method="POST">
-    <center><table>
-        
-              
-
-         <tr>
+ <center><table>
+ <form name= "tabla" action="insertarUs.php" onsubmit="return comprobar()" method="POST">
+      
+    <tr>
             <td><span><label for="filename" font-size: 13px>Nombre Completo:</label></span></td>
-            <td><span><input  name="Name"  type="text" width="220px"/></span></td>
+            <td><span><input  name="nombre"  type="text" width="220px" onfocus="restaurar()"/></td>
+            <td><p id="aviso"></p></td>
+    </tr>
+    <tr>
+    <td><span><label for="filename" font-size: 13px>Contraseña:</label></span></td>
+    <td><span><input  name="pasword"  type="password" width="220px" onfocus="restaurar2()"/></span></td>
+            <td><p id="aviso2"></p></td>
+       </tr>
+       <tr>
+    <td><span><label for="filename" font-size: 13px>Nombre de Usuario:</label></span></td>
+    <td><span><input  name="nick"  type="text" width="220px" onfocus="restaurar3()"/></span></td>
+            <td><p id="aviso3"></p></td>
         </tr>
         <tr>
-            <td><span><label for="filename" font-size: 13px>Contraseña:</label></span></td>
-            <td><span><input  name="Pass"  type="password" width="220px"/></span></td>
-        </tr>
-
-         <tr>
-            <td><span><label for="filename" font-size: 13px>Nombre de Usuario:</label></span></td>
-            <td><span><input  name="UserName"  type="text" width="220px"/></span></td>
-        </tr>
-
-         
-         <tr>
-            <td><span><label for="filename" font-size: 13px>Roles:</label></span></td>
-            <td><select name="rol">
+    <td><span><label for="filename" font-size: 13px>Roles:</label></span></td>
+            <td><select name="rol"  onfocus="restaurar4()">
+            <option Value="0">Selecciona una opción</option>
             <option Value="1">Administrador</option>
             <option Value="2">Usuario</option>
-            </select> </td>
-        </tr>
-      
-      <tr>
-      <td><input type="submit" value="Guardar Datos"> </td></tr>
-            
-    </tr>
-    </table></center>
-   
+            </select></td>
+            <td><p id="aviso4"> </p></td>
+</tr>
+<tr>
+   <td><button type="submit" style='width:110px; height:25px; background-color: #F4590C; color:white' ><strong>Guardar</strong></button></td>
+</tr>
+</table></center>
  <div id="col-browsr"></div> 
-
-        
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>
@@ -117,14 +168,16 @@ include("seguridad.php");
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p clss="f-right"><a href="index.php">P&aacutegina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacutea en Computaci&oacuten</a></p>
+        <p class="f-right">P&aacutegina Web</a> presentada por 5to Semestre de Ingenier&iacutea en Computaci&oacuten</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacutenoma de Tlaxcala</strong>, All Rights Reserved &reg;</p>
 
+
     </div> <!-- /footer -->
 
 </div> <!-- /main -->
-
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-1.5.min.js"></script>
 </body>
 </html>

@@ -1,3 +1,18 @@
+<?php
+include("seguridad.php");
+include("conexion.php");
+
+$valor1=$_SESSION["k_username"];
+$fecha=$_REQUEST['fecha'];
+
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+
+$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
+$listado = mysql_query($query) or die(mysql_error());   
+?>
+
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -12,7 +27,7 @@
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/reset.css" />
     <link rel="stylesheet" media="screen,projection" type="text/css" href="css/main.css" />
     <!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="css/main-msie.css" /><![endif]-->
-    <link rel="stylesheet" media="screen,projection" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" media="screen,projection" type="text/css" href="css/estilot.css" />
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Segunda Consulta</title>
@@ -30,7 +45,7 @@
 
         <!-- Navigation -->
         <div id="nav">
-            <a href="index.php" id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
+             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
   
         </div> <!-- /nav -->
 
@@ -43,13 +58,14 @@
             <li id="tray-active"><a href="main.php">Bienvenidos</a></li> <!-- Active page -->
             <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
             <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
+              <li><a href="newuser.php">Nuevo Usuario</a></li>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
             <form action="historial.php" method="get">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" value="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -59,43 +75,36 @@
     </div> <!-- /tray -->
 
     <!-- Promo -->
-    <div id="col-top"></div>
+    
     <div id="col" class="box">
  <form>
-        <div id="col-text">
+        
             
-
+<center>
             <table border="5">
             <tr>
                 <th>Id</th>
-                 <th> </th>
-                 <th> </th>
+                 
                 <th>Hora</th>
-                <th> </th>
+                
                 <th>Nombre</th>
+                <th>Editar</th>
             </tr>
             <tr>
-<?php
-include("conexion.php");
-include("seguridad.php");
-$valor1=$_SESSION["k_username"];
-$fecha=$_REQUEST['fecha'];
+<?php while($registro = mysql_fetch_assoc($listado)){?>
+    <tr>
+     <td><p><?php echo $registro['id'];?></p></td>
+      <td></br><?php echo $registro['hora'];?></td>
+       <td></br><?php echo $registro['nombre'];?></td>
+        <td></br><a href = "UpdateVista.php?id=<?php echo $registro['id'];?>">Editar</a></td>
 
-$conexion= mysql_connect($host,$user,$pw);
-mysql_select_db($db,$conexion);
+    </tr>
 
-$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
-$listado = mysql_query($query) or die(mysql_error());   
-while($registro = mysql_fetch_assoc($listado))
-{
-   echo "</tr><tr><td><p>".$registro['id']."</p><td></td><td></td><td>".$registro['hora']."<td></td><td></td><td>".$registro['nombre']."</td>";
-}
+<?php } ?>
 
-?>
-<td></td>
 </tr>
             
-        </table>
+        </table></center>
         </div> <!-- /col-text -->
     
     </div> <!-- /col -->
@@ -109,7 +118,7 @@ while($registro = mysql_fetch_assoc($listado))
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p class="f-right"><a href="index.php">P&aacutegina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacutea en Computaci&oacuten</a></p>
+        <p class="f-right">P&aacutegina Web</a> presentada por 5to Semestre de Ingenier&iacutea en Computaci&oacuten</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacutenoma de Tlaxcala</strong>, All Rights Reserved &reg;</p>

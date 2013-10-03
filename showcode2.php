@@ -1,3 +1,10 @@
+<html>
+<?php
+
+
+
+include("seguridad.php");
+?>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -16,7 +23,7 @@
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Ver C&oacute;digo</title>
-     <script language="Javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
+     <script language="Javascript" type="text/javascript" src="../edit_area/edit_area_full.js"></script>
     <script language="Javascript" type="text/javascript">
         // initialisation
         editAreaLoader.init({
@@ -103,8 +110,8 @@
 
         <!-- Navigation -->
         <div id="nav">
-            <a href="index.php" id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-           
+             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
+          
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
@@ -122,7 +129,7 @@
         <div id="search" class="box">
             <form action="historial2.php" method="get">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" value="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -140,7 +147,7 @@
    
  <div id="col-browsr"></div> 
 
-        <div id="col-text">
+      
       <?php
 
 include_once("conexion.php");
@@ -148,7 +155,7 @@ $fecha=$_REQUEST['nombre'];
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 
-$query="SELECT codigo FROM prueba WHERE nombre='$_REQUEST[nombre]'";
+$query="SELECT codigo FROM prueba WHERE id='$_REQUEST[nombre]'";
 $listado = mysql_query($query) or die(mysql_error());   
 
 
@@ -173,10 +180,11 @@ while($registro = mysql_fetch_assoc($listado))
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p class="f-right"><a href="index.php">P&aacutegina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacutea en Computaci&oacuten</a></p>
+         <p class="f-right">P&aacutegina Web</a> presentada por 5to Semestre de Ingenier&iacutea en Computaci&oacuten</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacutenoma de Tlaxcala</strong>, All Rights Reserved &reg;</p>
+
 
     </div> <!-- /footer -->
 
