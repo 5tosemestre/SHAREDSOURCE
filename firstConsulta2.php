@@ -1,7 +1,8 @@
 <html>
 <?php
 include("seguridad.php");
-?>
+?> 
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -63,7 +64,7 @@ include("seguridad.php");
     </div> <!-- /tray -->
 
     <!-- Promo -->
-    
+    <div id="col-top"></div>
     <div id="col" class="box">
  <form>
     
@@ -120,7 +121,7 @@ while($registro = mysql_fetch_assoc($listado))
 
     $arreglo[$cont]=$registro["fecha"];
    //echo "<tr><td><p id=".$arreglo[$cont]." value=".$arreglo[$cont].">".fechaesp($arreglo[$cont])."</p></td><td>".$registro['count(*)']."</td>";
-   echo "</td><tr><td><p id=".$arreglo[$cont]." value=".$arreglo[$cont].">".fechaesp($arreglo[$cont])."</p></td><td></br>".$registro['count(*)'];
+   echo "</td><tr><td><font color='navy'><p id=".$arreglo[$cont]." value=".$arreglo[$cont].">".fechaesp($arreglo[$cont])."</p></td><td></br>".$registro['count(*)'];
    
 
    $cont++;   
@@ -132,7 +133,7 @@ while($registro = mysql_fetch_assoc($listado))
 </tr>
 </table></center>
             
-                   </div> <!-- /col-text -->
+                  
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>

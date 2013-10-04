@@ -1,7 +1,8 @@
-<html>
+﻿<html>
 <?php
 include("seguridad.php");
 ?>
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
