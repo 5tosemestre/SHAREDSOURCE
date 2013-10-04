@@ -31,12 +31,12 @@ function comprobar() {
 
          var enviar = "si"
          if (nombre.value == "" || nombre.value.indexOf(" ") == 0) {
-            var texto = "Es obligatorio introducir el nombre."  
+            var texto = " Es obligatorio introducir el nombre."  
             aviso.innerHTML += texto
             enviar = "no"
             }
          if (apellido.value == "" || apellido.value.indexOf(" ") == 0 ) {
-            var texto = "Es obligatorio introducir la Contraseña."  
+            var texto = " Es obligatorio introducir la contraseña."  
             aviso2.innerHTML += texto
             enviar = "no"
             }
@@ -92,13 +92,13 @@ function restaurar2() {
                      <td><h3>Usuario:</h3></td>
                      <td><input type="text" size="25" name="user" onfocus="restaurar()"/></td>
                      
-                     <td><p id="aviso"></p></td>
+                     <td><font color="red"><p id="aviso"></p></td>
                 </tr>
                 <tr>
                       <td><h3>Contraseña:</h3></td>
 
                     <td><input type="password" size="25" name="pass" onfocus="restaurar2()"/></td>
-                    <td><p id="aviso2"></p></td>
+                    <td><font color="red"><p id="aviso2"></p></td>
 
                 </tr>
             </table>

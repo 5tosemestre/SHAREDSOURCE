@@ -65,7 +65,7 @@ include("seguridad.php");
     </div> <!-- /tray -->
 
     <!-- Promo -->
-    
+    <div id="col-top"></div>
     <div id="col" class="box">
  <form>
     
@@ -90,7 +90,7 @@ $query="SELECT id,hora, nombre from prueba where fecha='$fecha' order by hora de
 $listado = mysql_query($query) or die(mysql_error());   
 while($registro = mysql_fetch_assoc($listado))
 {
-   echo "</tr><tr><td><p>".$registro['id']."</p><td></br>".$registro['hora']."<td></br>".$registro['nombre']."</td>";
+   echo "</tr><tr><td><font color='navy'><p>".$registro['id']."</p><td></br>".$registro['hora']."<td></br>".$registro['nombre']."</td>";
 }
 
 ?>
@@ -98,7 +98,7 @@ while($registro = mysql_fetch_assoc($listado))
 </tr>
             
         </table></center>
-        </div> <!-- /col-text -->
+  
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>
@@ -119,8 +119,8 @@ while($registro = mysql_fetch_assoc($listado))
 
     </div> <!-- /footer -->
 </div> <!-- /main -->
-<script src="JS/jquery-1.10.2.js"></script>
-<script src="JS/jquery-1.5.min.js"></script>
-<script src="JS/logica4.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-1.5.min.js"></script>
+<script src="js/logica4.js"></script>
 </body>
 </html>

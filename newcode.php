@@ -1,4 +1,4 @@
-﻿<html>
+﻿ <html>
 <?php
 include("seguridad.php");
 ?>
