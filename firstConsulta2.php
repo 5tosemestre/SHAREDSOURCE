@@ -53,7 +53,7 @@ include("seguridad.php");
         <div id="search" class="box">
             <form action="historial2.php" method="get">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" value="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -144,10 +144,11 @@ while($registro = mysql_fetch_assoc($listado))
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p class="f-right"><a href="index.php">P&aacutegina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacutea en Computaci&oacuten</a></p>
+        <p class="f-right">P&aacutegina Web</a> presentada por 5to Semestre de Ingenier&iacutea en Computaci&oacuten</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacutenoma de Tlaxcala</strong>, All Rights Reserved &reg;</p>
+
 
     </div> <!-- /footer -->
 
