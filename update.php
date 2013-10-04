@@ -13,12 +13,28 @@
 mysql_query($sql, $con);
 
   include("UpdateVista.php");
-     echo "<p> Se ha actualizado correctamente</p>";
+
+     //echo "<p> Se ha actualizado correctamente</p>";
+
+  echo"
+<script language='JavaScript'>
+alert('Se ha actualizado correctamente');
+ location.href='firstConsulta.php';
+</script>";
+
+
    }
  else
    {
-    include("UpdateVista.php");
-     echo "<p>No se ha actualizado correctamente</p>";
+   
+  include("UpdateVista.php");
+    // echo "<p>No se ha actualizado correctamente</p>";
+      echo"
+<script language='JavaScript'>
+alert('Campo no admitidos');
+
+</script>";
+
     }
 
 ?>
