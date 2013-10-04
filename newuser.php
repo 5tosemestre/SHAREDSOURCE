@@ -44,17 +44,17 @@ function comprobar() {
             enviar = "no"
             }
          if (apellido.value == "" || apellido.value.indexOf(" ") == 0 ) {
-            var texto = "Es obligatorio introducir la Contraseña."  
+            var texto = "Es obligatorio introducir la contraseña."  
             aviso2.innerHTML += texto
             enviar = "no"
             }
         if (nic.value == "" || nic.value.indexOf(" ") == 0 ) {
-            var texto = "Es obligatorio introducir el nick."  
+            var texto = "Es obligatorio introducir el nombre del usuario."  
             aviso3.innerHTML += texto
             enviar = "no"
             }
         if (roles.value == 0) {
-            var texto = " Es obligatorio Elejir un Rol."  
+            var texto = " Es obligatorio elegir un rol."  
             aviso4.innerHTML += texto
             enviar = "no"
             }
@@ -110,10 +110,12 @@ function restaurar4() {
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="#" method="get">
+            <form action="historial.php" method="get">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
-                    <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
+                    <div id="search-input">
+                    <span class="noscreen">Search:</span>
+                    <input type="text" size="30" name="ide" id="ide" placeholder="Buscar: " /></div>
+                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
         </div> <!-- /search -->
@@ -122,7 +124,7 @@ function restaurar4() {
     </div> <!-- /tray -->
 
     <!-- Promo -->
- 
+ <div id="col-top"></div>
     <div id="col" class="box">
 
  <center><table>
@@ -131,17 +133,17 @@ function restaurar4() {
     <tr>
             <td><span><label for="filename" font-size: 13px>Nombre Completo:</label></span></td>
             <td><span><input  name="nombre"  type="text" width="220px" onfocus="restaurar()"/></td>
-            <td><p id="aviso"></p></td>
+            <td><font color="red"><p id="aviso"></p></td>
     </tr>
     <tr>
     <td><span><label for="filename" font-size: 13px>Contraseña:</label></span></td>
     <td><span><input  name="pasword"  type="password" width="220px" onfocus="restaurar2()"/></span></td>
-            <td><p id="aviso2"></p></td>
+            <td><font color="red"><p id="aviso2"></p></td>
        </tr>
        <tr>
     <td><span><label for="filename" font-size: 13px>Nombre de Usuario:</label></span></td>
     <td><span><input  name="nick"  type="text" width="220px" onfocus="restaurar3()"/></span></td>
-            <td><p id="aviso3"></p></td>
+            <td><font color="red"><p id="aviso3"></p></td>
         </tr>
         <tr>
     <td><span><label for="filename" font-size: 13px>Roles:</label></span></td>
@@ -150,7 +152,7 @@ function restaurar4() {
             <option Value="1">Administrador</option>
             <option Value="2">Usuario</option>
             </select></td>
-            <td><p id="aviso4"> </p></td>
+            <td><font color="red"><p id="aviso4"> </p></td>
 </tr>
 <tr>
    <td><button type="submit" style='width:110px; height:25px; background-color: #F4590C; color:white' ><strong>Guardar</strong></button></td>

@@ -1,6 +1,6 @@
 <html>
 <?php
-//include("seguridad.php");
+include("seguridad.php");
 ?>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -20,7 +20,7 @@
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Nuevo C&oacutedigo</title>
-    <script language="Javascript" type="text/javascript" src="../edit_area/edit_area_full.js"></script>
+    <script language="Javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
     <script language="Javascript" type="text/javascript">
         // initialisation
         editAreaLoader.init({
@@ -194,7 +194,7 @@ while($registro = mysql_fetch_assoc($listado))
     
             <td><span><input  name="inputName" type="text" width="220px" onfocus="restaurar()"/></span></td>
         </br>
-            <td><p id="aviso"></p></td>
+            <td><font color="red"><p id="aviso"></p></td>
         </tr>
       
       <tr><tr>
@@ -217,7 +217,7 @@ while($registro = mysql_fetch_assoc($listado))
 
 
 
-        </div> <!-- /col-text -->
+        
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>

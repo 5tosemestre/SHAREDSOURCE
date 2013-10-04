@@ -75,7 +75,7 @@ $listado = mysql_query($query) or die(mysql_error());
     </div> <!-- /tray -->
 
     <!-- Promo -->
-    
+    <div id="col-top"></div>
     <div id="col" class="box">
  <form>
         
@@ -93,7 +93,7 @@ $listado = mysql_query($query) or die(mysql_error());
             <tr>
 <?php while($registro = mysql_fetch_assoc($listado)){?>
     <tr>
-     <td><p><?php echo $registro['id'];?></p></td>
+     <td><font color='navy'><p><?php echo $registro['id'];?></p></td>
       <td></br><?php echo $registro['hora'];?></td>
        <td></br><?php echo $registro['nombre'];?></td>
         <td></br><a href = "UpdateVista.php?id=<?php echo $registro['id'];?>">Editar</a></td>
@@ -105,7 +105,7 @@ $listado = mysql_query($query) or die(mysql_error());
 </tr>
             
         </table></center>
-        </div> <!-- /col-text -->
+       
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>
@@ -125,8 +125,8 @@ $listado = mysql_query($query) or die(mysql_error());
 
     </div> <!-- /footer -->
 </div> <!-- /main -->
-<script src="JS/jquery-1.10.2.js"></script>
-<script src="JS/jquery-1.5.min.js"></script>
-<script src="JS/logica2.js"></script>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-1.5.min.js"></script>
+<script src="js/logica2.js"></script>
 </body>
 </html>
