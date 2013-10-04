@@ -19,6 +19,39 @@
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>P&aacute;gina Principal</title>
+    <script type="text/javascript">
+function comprobar() { 
+         var nombre = document.indes.user;
+         var apellido = document.indes.pass;
+         var aviso = document.getElementById("aviso");
+         var aviso2 = document.getElementById("aviso2");
+
+         aviso.innerHTML = ""
+         aviso2.innerHTML = ""
+
+         var enviar = "si"
+         if (nombre.value == "" || nombre.value.indexOf(" ") == 0) {
+            var texto = "Es obligatorio introducir el nombre."  
+            aviso.innerHTML += texto
+            enviar = "no"
+            }
+         if (apellido.value == "" || apellido.value.indexOf(" ") == 0 ) {
+            var texto = "Es obligatorio introducir la Contraseña."  
+            aviso2.innerHTML += texto
+            enviar = "no"
+            }
+
+         if (enviar == "no") {return false}
+         }
+function restaurar() {
+         var aviso = document.getElementById("aviso");
+         aviso.innerHTML = ""
+         }
+function restaurar2() {
+         var aviso2 = document.getElementById("aviso2");
+         aviso2.innerHTML = ""
+         }
+</script>
 </head>
 
 <body>
@@ -51,20 +84,25 @@
     <div id="col" class="box">
         <div id="col-text">
 
-            <form  method="POST" name="formulario" id="formulario" action="login.php">
+
+
+            <form  method="POST" name="indes" id="formulario"  onsubmit="return comprobar()" action="login.php">
             <table>
                  <tr>
                      <td><h3>Usuario:</h3></td>
-                     <td><input type="text" size="25" name="user"/></td>
+                     <td><input type="text" size="25" name="user" onfocus="restaurar()"/></td>
+                     <td><p id="aviso"></p></td>
                 </tr>
                 <tr>
                       <td><h3>Contraseña:</h3></td>
-                    <td><input type="password" size="25" name="pass"/></td>
+                    <td><input type="password" size="25" name="pass" onfocus="restaurar2()"/></td>
+                    <td><p id="aviso2"></p></td>
                 </tr>
             </table>
             
             <p id="btns">
-                <input type="submit" value="Entrar">
+               <center> <button type="submit" style='width:130px; height:35px; background-color: #F4590C; color:white' ><strong>Ingresar</strong></button> </center>
+              
             </p>
         </form>
         </div> <!-- /col-text -->
@@ -79,7 +117,7 @@
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p class="f-right"><a href="index.php">P&aacute;gina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacute;a en Computaci&oacute;n</a></p>
+        <p class="f-right">P&aacute;gina Web</a> presentada por 5to Semestre de Ingenier&iacute;a en Computaci&oacute;n</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacute;noma de Tlaxcala</strong>, All Rights Reserved &reg;</p>

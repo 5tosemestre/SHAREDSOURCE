@@ -1,3 +1,7 @@
+<html>
+<?php
+//include("seguridad.php");
+?>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -16,7 +20,7 @@
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Nuevo C&oacutedigo</title>
-    <script language="Javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
+    <script language="Javascript" type="text/javascript" src="../edit_area/edit_area_full.js"></script>
     <script language="Javascript" type="text/javascript">
         // initialisation
         editAreaLoader.init({
@@ -87,8 +91,32 @@
         {
             editAreaLoader.execCommand(id, 'set_editable', !editAreaLoader.execCommand(id, 'is_editable'));
         }
-    
+
+    function comprobar() { 
+      
+         var hola = document.inser.inputName;
+         var aviso = document.getElementById("aviso");
+
+         aviso.innerHTML = ""
+
+         var enviar = "si"
+         if (hola.value == "" || hola.value.indexOf(" ") == 0) {
+            var texto = "Es obligatorio introducir el nombre."  
+            aviso.innerHTML += texto
+            enviar = "no"
+            }
+
+
+         if (enviar == "no") {return false}
+         }
+
+function restaurar() {
+         var aviso = document.getElementById("aviso");
+         aviso.innerHTML = ""
+         }
+
     </script>
+
 </head>
 
 <body>
@@ -103,7 +131,7 @@
 
         <!-- Navigation -->
         <div id="nav">
-            <a href="index.php" id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
+             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
             
             
         </div> <!-- /nav -->
@@ -117,13 +145,14 @@
             <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
             <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
            <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
+             <li><a href="newuser.php">Nuevo Usuario</a></li>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
             <form action="historial.php" method="get">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" value="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -137,7 +166,7 @@
     <div id="col" class="box">
 
 
- <form action="insertar.php" method="get">
+ <form action="insertar.php"  method="get" name="inser" onsubmit="return comprobar()">
     <table>
         <tr><td><span><label for="filename" font-size: 13px>ID del &uacuteltimo registro :</label></span></td>
              <?php
@@ -157,22 +186,25 @@ while($registro = mysql_fetch_assoc($listado))
 
 }
 
-?>     
-     <tr>
+?>         </br>
+     <tr></tr>
             <td><span><label for="filename" font-size: 13px>Nombre:</label></span></td>
-            <td><span><input  name="inputName" type="text" width="220px"/></span></td>
+    
+            <td><span><input  name="inputName" type="text" width="220px" onfocus="restaurar()"/></span></td>
+        </br>
+            <td><p id="aviso"></p></td>
         </tr>
       
       <tr><tr>
       <td></td></tr>
-             <td><input type="submit" value="Guardar Datos"> </td>
+             <td><button type="submit" style='width:130px; height:35px; background-color: #F4590C; color:white' ><strong>Guardar</strong></button></td>
+
     </tr>
     </table>
    
  <div id="col-browsr"></div> 
 
-        <div id="col-text">
-
+ 
             <h3><span></span>Escribe aqu&iacute tu c&oacutedigo.</h3>
             
 
@@ -180,8 +212,9 @@ while($registro = mysql_fetch_assoc($listado))
             <textarea id="example_1" name="text" style="height: 350px; width: 100%;" name="test_1">
 
         </textarea>
-            
-           
+
+
+
         </div> <!-- /col-text -->
     
     </div> <!-- /col -->
@@ -189,12 +222,27 @@ while($registro = mysql_fetch_assoc($listado))
     
     <hr class="noscreen" />
     </form>
-    
+
+        <script language="Javascript" type="text/javascript">
+
+
+
+
+
+
+
+
+</script>
+
+
+            
+      
+             
 <!-- Footer -->
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p class="f-right"><a href="index.php">P&aacutegina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacutea en Computaci&oacuten</a></p>
+        <p class="f-right">P&aacutegina Web</a> presentada por 5to Semestre de Ingenier&iacutea en Computaci&oacuten</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacutenoma de Tlaxcala</strong>, All Rights Reserved &reg;</p>
@@ -202,6 +250,9 @@ while($registro = mysql_fetch_assoc($listado))
     </div> <!-- /footer -->
 
 </div> <!-- /main -->
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery-1.5.min.js"></script>
 
 </body>
+
 </html>
