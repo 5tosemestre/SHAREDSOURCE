@@ -1,7 +1,16 @@
 <html>
+
+
 <?php
 include("seguridad.php");
-?>
+include_once("conexion.php");
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+$ides=$_POST['ide'];
+
+
+  ?>
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -107,7 +116,8 @@ include("seguridad.php");
 
         <!-- Navigation -->
         <div id="nav">
-           <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
+            <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
+            <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
            
         </div> <!-- /nav -->
 
@@ -118,16 +128,19 @@ include("seguridad.php");
 
         <ul>
             <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
-            <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
-            <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
-            <li><a href="newuser.php">Nuevo Usuario</a></li>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="newcode.php">Nuevo C&oacutedigo</a></li>';}?>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>';}
+            else{
+                echo'<li><a href="firstConsulta2.php">C&oacutedigos Guardados</a></li>';
+            }?>
+            <?php if($_SESSION['k_nam']==1){echo '<li ><a href="newuser.php">Nuevo Usuario</a></li>';}?>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial.php" method="get">
+            <form action="historial.php" method="POST">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide"  placeholder="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide"  onfocus="this.value=''" value="Buscar" /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -144,44 +157,40 @@ include("seguridad.php");
 <form>
    
  <div id="col-browsr"></div> 
-
-
-    
                       
-         <?php
-
+   <?php
+include("seguridad.php");
 include_once("conexion.php");
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
-if (empty($_REQUEST['ide'])){ 
-      echo "Debe introducir un id para buscar";  
+$ides=$_POST['ide'];
+if (empty($ides)){ 
+             include("MensajeBusquedaBlanco.php");
 }
 
 
-else{
-$cadena ="SELECT codigo FROM prueba WHERE id='$_REQUEST[ide]'"; 
-$tabla = mysql_query($cadena, $conexion) or die ("problema con cadena de conexion<br><b>" . mysql_error()."</b>");
-$campos = mysql_num_rows($tabla);
-$cadena = mysql_query($cadena, $conexion);
+else
+{
+$cadena=sprintf("SELECT codigo FROM prueba WHERE id='%s'",
+        mysql_real_escape_string($ides));
+$tabla = mysql_query($cadena, $conexion); 
+if($row = mysql_fetch_array($tabla)){
+  $campos= $row['codigo'];
 
-
-
-while ($campos = mysql_fetch_array($tabla)){
-    
-   echo "<textarea id=\"example_1\"  name=\"text\"  style=\"height: 350px; width: 100%;\">"
-   .$campos['codigo'].
-  "</textarea>";
-         
-   }
-
-}
-
-?>
-
-
-     
+  
+    if($campos!= ""){
+        echo "<textarea id=\"example_1\"  name=\"text\"  style=\"height: 350px; width: 100%;\">"
+   .$campos.
+  "</textarea>";}
             
-     
+            }else{
+        include("MensajeBusquedaError.php");
+        
+    }
+    mysql_free_result($tabla);
+}
+
+  ?>
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>
