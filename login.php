@@ -3,15 +3,16 @@ include("seguridad.php");
 $users=$_REQUEST["user"];
 $pas=$_REQUEST["pass"];
 include("conexion.php");
-include("subir.php");
+include("subir.php");	
+	
 //datos para establecer la conexion con la base de mysql.
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 function quitar($mensaje)
 {
-	$nopermitidos = array("'",'\\','<','>',"\"");
-	$mensaje = str_replace($nopermitidos, "", $mensaje);
-	return $mensaje;
+		$nopermitidos = array("'",'\\','<','>',"\"");
+		$mensaje = str_replace($nopermitidos, "", $mensaje);
+		return $mensaje;
 }
 if(trim($users) != "" && trim($pas) != "")
 {
