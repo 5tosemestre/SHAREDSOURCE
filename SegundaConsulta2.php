@@ -1,7 +1,22 @@
-<html>
 <?php
 include("seguridad.php");
+include("conexion.php");
+
+if($_SESSION['k_nam']==2){
+$valor=$_SESSION["k_username"];
+$fecha=$_REQUEST['fecha'];
+$clave = "a12b34dsakcsuklmdsa";
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+
+$query=sprintf("SELECT id,nombre,hora FROM prueba WHERE MD5(concat('".$clave."',fecha))='%s' order by hora desc",
+        mysql_real_escape_string($fecha),mysql_real_escape_string('fecha'));
+$listado = mysql_query($query) or die(mysql_error());  
+}else{
+    header("location:mainpage.php");
+}
 ?>
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -34,8 +49,8 @@ include("seguridad.php");
 
         <!-- Navigation -->
         <div id="nav">
+             <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
              <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-       
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
@@ -44,18 +59,17 @@ include("seguridad.php");
     <div id="tray">
 
         <ul>
-            <li id="tray-active"><a href="main.php">Bienvenidos</a></li> <!-- Active page -->
-      
+            <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
             <li><a href="firstConsulta2.php">C&oacutedigos Guardados</a></li>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial2.php" method="get">
+            <form action="historial2.php" method="post">
                 <div class="box">
                     <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide"
 
-                     placeholder="Buscar: " /></div>
+                     placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'"/></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -71,33 +85,25 @@ include("seguridad.php");
     
             
 <center>
-            <table border="5">
+           <table border="5">
             <tr>
-                <th>Id</th>
-                <th>Hora</th>
-                
                 <th>Nombre</th>
-           
+                <th>Hora</th>
             </tr>
             <tr>
-<?php
-include("conexion.php");
-$fecha=$_REQUEST['fecha'];
-$conexion= mysql_connect($host,$user,$pw);
-mysql_select_db($db,$conexion);
+<?php while($registro = mysql_fetch_assoc($listado)){
+    $id_protegido = md5($clave.$registro['id']);?>
+    <tr>
+        <td></br><a href = "showcode.php?id=<?php echo  $id_protegido;?>"><?php echo $registro['nombre']?></a></td>
+        <td></br><?php echo $registro['hora'];?></td>
+        
+    </tr>
 
-$query="SELECT id,hora, nombre from prueba where fecha='$fecha' order by hora desc;";
-$listado = mysql_query($query) or die(mysql_error());   
-while($registro = mysql_fetch_assoc($listado))
-{
-   echo "</tr><tr><td><font color='navy'><p>".$registro['id']."</p><td></br>".$registro['hora']."<td></br>".$registro['nombre']."</td>";
-}
-
-?>
+<?php } ?>
 
 </tr>
-            
-        </table></center>
+</table>
+</center>
   
     
     </div> <!-- /col -->
