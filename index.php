@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -86,25 +85,56 @@ function restaurar2() {
 
 
 
+
+
+
+
+ <script type="text/javascript">
+        function soloLetras(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8)
+                return true;
+            patron = /[A-Za-zñÑ\s]/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+        function soloNum(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8)
+                return true;
+            patron = /\d/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+        function numYletras(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8)
+                return true;
+            patron = /\w/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+    
+    </script>
+
+
             <form  method="POST" name="indes" id="formulario"  onsubmit="return comprobar()" action="login.php">
             <table>
                  <tr>
                      <td><h3>Usuario:</h3></td>
-                     <td><input type="text" size="25" name="user" onfocus="restaurar()"/></td>
-                     
+                     <td><input type="text" size="25" name="user" onkeypress="return  numYletras(event)" onfocus="restaurar()"/></td>
                      <td><font color="red"><p id="aviso"></p></td>
                 </tr>
                 <tr>
-                      <td><h3>Contraseña:</h3></td>
-
-                    <td><input type="password" size="25" name="pass" onfocus="restaurar2()"/></td>
+                    <td><h3>Contraseña:</h3></td>
+                    <td><input type="password" size="25" name="pass" onkeypress="return  numYletras(event)" onfocus="restaurar2()"/></td>
                     <td><font color="red"><p id="aviso2"></p></td>
-
                 </tr>
+                <tr></tr>
+              
             </table>
-            
-            <p id="btns">
-               <center> <button type="submit" style='width:130px; height:35px; background-color: #F4590C; color:white' ><strong>Ingresar</strong></button> </center>
+            <center><p id="btns"><button type="submit" style='width:130px; height:35px; background-color: #F4590C; color:white' ><strong>Ingresar</strong></button></center>
+               
               
             </p>
         </form>

@@ -1,6 +1,7 @@
 <html>
 <?php
 include("seguridad.php");
+if($_SESSION['k_nam']==1){
 ?>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -92,9 +93,8 @@ function restaurar4() {
 
         <!-- Navigation -->
         <div id="nav">
-             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-            
-            
+            <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
+             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span> 
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
@@ -104,17 +104,21 @@ function restaurar4() {
 
         <ul>
             <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
-            <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
-           <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="newcode.php">Nuevo C&oacutedigo</a></li>';}?>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>';}
+            else{
+                echo'<li><a href="firstConsulta2.php">C&oacutedigos Guardados</a></li>';
+            }?>
+            <?php if($_SESSION['k_nam']==1){echo '<li ><a href="newuser.php">Nuevo Usuario</a></li>';}?>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial.php" method="get">
+            <form action="historial.php" method="POST">
                 <div class="box">
                     <div id="search-input">
                     <span class="noscreen">Search:</span>
-                    <input type="text" size="30" name="ide" id="ide" placeholder="Buscar: " /></div>
+                    <input type="text" size="30" name="ide" id="ide" onfocus="this.value=''" value="Buscar"/></div>
                      <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -127,22 +131,65 @@ function restaurar4() {
  <div id="col-top"></div>
     <div id="col" class="box">
 
+
+
+
+
+
+
+
+
+
+        <script type="text/javascript">
+        function soloLetras(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8)
+                return true;
+            patron = /[A-Za-zñÑ\s]/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+        function soloNum(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8)
+                return true;
+            patron = /\d/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+        function numYletras(e) {
+            tecla = (document.all) ? e.keyCode : e.which;
+            if (tecla == 8)
+                return true;
+            patron = /\w/;
+            te = String.fromCharCode(tecla);
+            return patron.test(te);
+        }
+    
+    </script>
+
+
+
+
+
+
+
  <center><table>
  <form name= "tabla" action="insertarUs.php" onsubmit="return comprobar()" method="POST">
       
     <tr>
             <td><span><label for="filename" font-size: 13px>Nombre Completo:</label></span></td>
-            <td><span><input  name="nombre"  type="text" width="220px" onfocus="restaurar()"/></td>
+            <td><span><input  name="nombre"  onkeypress="return  soloLetras(event)" type="text" width="220px" onfocus="restaurar()"/></td>
             <td><font color="red"><p id="aviso"></p></td>
     </tr>
     <tr>
     <td><span><label for="filename" font-size: 13px>Contraseña:</label></span></td>
-    <td><span><input  name="pasword"  type="password" width="220px" onfocus="restaurar2()"/></span></td>
+    <td><span><input  name="pasword"  onkeypress="return numYletras(event)" type="password" width="220px" onfocus="restaurar2()"/></span></td>
             <td><font color="red"><p id="aviso2"></p></td>
        </tr>
        <tr>
     <td><span><label for="filename" font-size: 13px>Nombre de Usuario:</label></span></td>
-    <td><span><input  name="nick"  type="text" width="220px" onfocus="restaurar3()"/></span></td>
+    <td><span><input  name="nick" onkeypress="return numYletras(event)" type="text" width="220px" onfocus="restaurar3()"/></span></td>
             <td><font color="red"><p id="aviso3"></p></td>
         </tr>
         <tr>
@@ -155,7 +202,8 @@ function restaurar4() {
             <td><font color="red"><p id="aviso4"> </p></td>
 </tr>
 <tr>
-   <td><button type="submit" style='width:110px; height:25px; background-color: #F4590C; color:white' ><strong>Guardar</strong></button></td>
+    <tr></tr>
+   <td><button type="submit" style='width:110px; height:25px; background-color: #F4590C; color:white' <?php if($_SESSION['k_nam']==1){echo 'enabled';}else{echo 'disabled'; }?> ><strong>Guardar</strong></button></td>
 </tr>
 </table></center>
  <div id="col-browsr"></div> 
@@ -181,5 +229,8 @@ function restaurar4() {
 </div> <!-- /main -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-1.5.min.js"></script>
+<?php }else{
+    header("location:mainpage.php");
+}?>
 </body>
 </html>
