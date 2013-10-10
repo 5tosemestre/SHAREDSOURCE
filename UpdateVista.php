@@ -2,12 +2,23 @@
 include("seguridad.php");
 include("conexion.php");
 
+if($_SESSION['k_nam']==1){
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
-$query="SELECT * FROM prueba WHERE id='$_REQUEST[id]'";
- 
+$clave = "a12b34dsakcsuklmdsa";
+$id_code =$_REQUEST['id'];
+$query=sprintf("SELECT * from prueba WHERE MD5(concat('%s',id))='%s'",
+        mysql_real_escape_string($clave),
+        mysql_real_escape_string($id_code));
 $listado = mysql_query($query, $conexion)or die(mysql_error());   
 $registro = mysql_fetch_assoc($listado);
+//este es el que  se modifica
+//$query = "SELECT * FROM prueba WHERE MD5(concat('".$clave."',id))='".$id_code."'";
+//$listado = mysql_query($query, $conexion)or die(mysql_error());   
+//$registro = mysql_fetch_assoc($listado);
+}else{
+    header("location:mainpage.php");
+}
 ?>
 <html>
 <head>
@@ -28,7 +39,7 @@ $registro = mysql_fetch_assoc($listado);
     <link rel="stylesheet" media="print" type="text/css" href="css/print.css" />
 
     <title>Ver C&oacute;digo</title>
-     <script language="Javascript" type="text/javascript" src="../edit_area/edit_area_full.js"></script>
+     <script language="Javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
     <script language="Javascript" type="text/javascript">
         // initialisation
         editAreaLoader.init({
@@ -114,8 +125,8 @@ $registro = mysql_fetch_assoc($listado);
 
         <!-- Navigation -->
         <div id="nav">
-            <a href="index.php" id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-           
+            <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
+            <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
@@ -127,13 +138,14 @@ $registro = mysql_fetch_assoc($listado);
             <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
             <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
             <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
+                <li><a href="newuser.php">Nuevo Usuario</a></li>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial.php" method="get">
+            <form action="historial.php" method="POST">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" value="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -148,18 +160,19 @@ $registro = mysql_fetch_assoc($listado);
 
 
 <center>
-    <form method="get" action="update.php">
+    <form method="POST" action="update.php">
  <div id="col-browsr">
     <input type="hidden" id="id" name="id" value="<?php echo $registro["id"]; ?>" />
  </div> 
-        <div id="col-text">
+       
 
   <textarea id="example_1"  name="text"  style="height: 350px; width: 100%;"><?php echo $registro["codigo"]; ?></textarea>
+</br>
+</br>
+<button type="submit" style='width:130px; height:35px; background-color: #F4590C; color:white' ><strong>Actualizar</strong></button>
+                                                                      
 
-<button type="submit">Guardar Cambios</button>
-   
-
-        </div> <!-- /col-text -->
+        
     </div> <!-- /col -->
     <div id="col-bottom"></div>
     
@@ -171,7 +184,7 @@ $registro = mysql_fetch_assoc($listado);
     <div id="footer">
 
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
-        <p class="f-right"><a href="index.php">P&aacutegina Web</a> presentada por <a href="index.php">5to Semestre de Ingenier&iacutea en Computaci&oacuten</a></p>
+        <p class="f-right">P&aacutegina Web presentada por 5to Semestre de Ingenier&iacutea en Computaci&oacuten</p>
         <!-- Do you want remove this backlinks? Look at www.nuviotemplates.com/payment.php -->
 
         <p>Copyright &copy;&nbsp;2013 <strong>Universidad Aut&oacutenoma de Tlaxcala</strong>, All Rights Reserved &reg;</p>
