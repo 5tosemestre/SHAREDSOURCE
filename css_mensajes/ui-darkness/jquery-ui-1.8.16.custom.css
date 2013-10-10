@@ -24,7 +24,7 @@
 .ui-widget-content a { color: #ffffff; }
 
 /*COLOR DE BARRA DE TITULO EN LA VENTANA DE DIALOGO*/
-.ui-widget-header { border: 1px solid #D5D9DA; background: #959595  50% 50% repeat-x; color: #FFFFFF; font-weight: bold; }
+	.ui-widget-header { border: 1px solid #D5D9DA; background: #959595  50% 50% repeat-x; color: #FFFFFF; font-weight: bold; }
 .ui-widget-header a { color: #ffffff; }
 
 /*cambia el color del boton con cual se activa la ventana de dialogo*/
@@ -58,51 +58,6 @@
 .ui-button .ui-button-text { display: block; line-height: 1.4;  }
 .ui-button-text-only .ui-button-text { padding: .4em 1em; }
 .ui-button-text-icons .ui-button-text { padding-left: 2.1em; padding-right: 2.1em; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
