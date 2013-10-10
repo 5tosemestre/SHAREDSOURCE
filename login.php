@@ -34,7 +34,8 @@ if(trim($users) != "" && trim($pas) != "")
 			}else{
 		
 		echo 'Usuario no existente en la base de datos';
-		header("location:index.php");
+		header("location:mensajeIndex.php");
+
 
 	}
 	mysql_free_result($result);
@@ -42,19 +43,16 @@ if(trim($users) != "" && trim($pas) != "")
 	 
 
 	echo 'Debe especificar un usuario y password';
-	header("location:index.php");
+	header("location:mensajeIndex.php");
 }
 }
-			if($_SESSION["k_nam"]==1)
+			if($_SESSION["k_nam"]==1 || $_SESSION["k_nam"]==2)
 			{
 
 				header("location:mainpage.php");
 				echo $_SESSION['k_username'];
 			}
-			else if($_SESSION["k_nam"]==2)
-			{
-				header("location:main.php");
-			}
 		
 mysql_close();
+
 ?>
