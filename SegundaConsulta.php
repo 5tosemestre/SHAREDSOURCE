@@ -2,14 +2,19 @@
 include("seguridad.php");
 include("conexion.php");
 
-$valor1=$_SESSION["k_username"];
+if($_SESSION['k_nam']==1){
+$valor=$_SESSION["k_username"];
 $fecha=$_REQUEST['fecha'];
-
+$clave = "a12b34dsakcsuklmdsa";
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 
-$query="SELECT id,hora, nombre from prueba where fecha='$fecha' and usuarios_id=$valor1 order by hora desc;";
-$listado = mysql_query($query) or die(mysql_error());   
+$query=sprintf("SELECT id,nombre,hora FROM prueba WHERE MD5(concat('".$clave."',fecha))='%s' and usuarios_id=%s order by hora desc",
+        mysql_real_escape_string($fecha),mysql_real_escape_string($valor),mysql_real_escape_string('fecha'));
+$listado = mysql_query($query) or die(mysql_error());  
+}else{
+    header("location:mainpage.php");
+}
 ?>
 
 <html>
@@ -45,25 +50,29 @@ $listado = mysql_query($query) or die(mysql_error());
 
         <!-- Navigation -->
         <div id="nav">
-             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-  
+            <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
+            <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
-    
+             
     <!-- Tray -->
     <div id="tray">
 
         <ul>
-            <li id="tray-active"><a href="main.php">Bienvenidos</a></li> <!-- Active page -->
-            <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
-            <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
-              <li><a href="newuser.php">Nuevo Usuario</a></li>
+            <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="newcode.php">Nuevo C&oacutedigo</a></li>';}?>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>';}
+            else{
+                echo'<li><a href="firstConsulta2.php">C&oacutedigos Guardados</a></li>';
+            }?>
+            
+            <?php if($_SESSION['k_nam']==1){echo '<li ><a href="newuser.php">Nuevo Usuario</a></li>';}?>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial.php" method="get">
+            <form action="historial.php" method="POST">
                 <div class="box">
                     <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
@@ -83,28 +92,26 @@ $listado = mysql_query($query) or die(mysql_error());
 <center>
             <table border="5">
             <tr>
-                <th>Id</th>
-                 
-                <th>Hora</th>
-                
+         
                 <th>Nombre</th>
+                <th>Hora</th>
                 <th>Editar</th>
             </tr>
             <tr>
-<?php while($registro = mysql_fetch_assoc($listado)){?>
+<?php while($registro = mysql_fetch_assoc($listado)){
+    $id_protegido = md5($clave.$registro['id']);?>
     <tr>
-     <td><font color='navy'><p><?php echo $registro['id'];?></p></td>
-      <td></br><?php echo $registro['hora'];?></td>
-       <td></br><?php echo $registro['nombre'];?></td>
-        <td></br><a href = "UpdateVista.php?id=<?php echo $registro['id'];?>">Editar</a></td>
-
+        <td></br><a href = "showcode.php?id=<?php echo  $id_protegido;?>"><?php echo $registro['nombre']?></a></td>
+        <td></br><?php echo $registro['hora'];?></td>
+        <?php if($_SESSION['k_nam']==1){echo '<td></br><a href = "UpdateVista.php?id='.$id_protegido.'">Editar</a></td>';}?>
+        
     </tr>
 
 <?php } ?>
 
 </tr>
-            
-        </table></center>
+</table>
+</center>
        
     
     </div> <!-- /col -->
@@ -127,6 +134,5 @@ $listado = mysql_query($query) or die(mysql_error());
 </div> <!-- /main -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-1.5.min.js"></script>
-<script src="js/logica2.js"></script>
 </body>
 </html>
