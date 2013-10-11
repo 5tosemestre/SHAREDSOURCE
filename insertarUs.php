@@ -1,5 +1,6 @@
          <?php
    
+               
     include("conexion.php");
 
    if(isset($_REQUEST['nombre']) && !empty($_REQUEST['nombre'])&&     
