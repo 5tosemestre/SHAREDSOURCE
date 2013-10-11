@@ -1,8 +1,9 @@
-﻿ <html>
+<html>
 <?php
-include("seguridad.php");
+ include("seguridad.php");
+if($_SESSION['k_nam']==1){
+   
 ?>
-
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -132,9 +133,8 @@ function restaurar() {
 
         <!-- Navigation -->
         <div id="nav">
+            <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
              <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-            
-            
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
@@ -144,14 +144,17 @@ function restaurar() {
 
         <ul>
             <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
-            <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
-           <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
-             <li><a href="newuser.php">Nuevo Usuario</a></li>
-        </ul>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="newcode.php">Nuevo C&oacutedigo</a></li>';}?>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>';}
+            else{
+                echo'<li><a href="firstConsulta2.php">C&oacutedigos Guardados</a></li>';
+            }?>
+            
+            <?php if($_SESSION['k_nam']==1){echo '<li ><a href="newuser.php">Nuevo Usuario</a></li>';}?>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial.php" method="get">
+            <form action="historial.php" method="POST">
                 <div class="box">
                     <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide"
 
@@ -169,7 +172,7 @@ function restaurar() {
     <div id="col" class="box">
 
 
- <form action="insertar.php"  method="get" name="inser" onsubmit="return comprobar()">
+ <form action="insertar.php"  method="POST" name="inser" onsubmit="return comprobar()">
     <table>
         <tr><td><span><label for="filename" font-size: 13px>ID del &uacuteltimo registro :</label></span></td>
              <?php
@@ -178,6 +181,7 @@ $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 
 $query="SELECT max(prueba.id) as id FROM prueba";
+
 $listado = mysql_query($query) or die(mysql_error());   
 
 
@@ -194,6 +198,7 @@ while($registro = mysql_fetch_assoc($listado))
             <td><span><label for="filename" font-size: 13px>Nombre:</label></span></td>
     
             <td><span><input  name="inputName" type="text" width="220px" onfocus="restaurar()"/></span></td>
+            
         </br>
             <td><font color="red"><p id="aviso"></p></td>
         </tr>
@@ -201,7 +206,8 @@ while($registro = mysql_fetch_assoc($listado))
       <tr><tr>
       <td></td></tr>
              <td><button type="submit" style='width:130px; height:35px; background-color: #F4590C; color:white' ><strong>Guardar</strong></button></td>
-
+               <td>  
+</td>
     </tr>
     </table>
    
@@ -209,38 +215,13 @@ while($registro = mysql_fetch_assoc($listado))
 
  
             <h3><span></span>Escribe aqu&iacute tu c&oacutedigo.</h3>
-            
+            <textarea id="example_1" name="text" style="height: 350px; width: 100%;" name="test_1"> </textarea>
 
-
-            <textarea id="example_1" name="text" style="height: 350px; width: 100%;" name="test_1">
-
-        </textarea>
-
-
-
-        
-    
     </div> <!-- /col -->
-    <div id="col-bottom"></div>
-    
+    <div id="col-bottom"></div>  
     <hr class="noscreen" />
     </form>
 
-        <script language="Javascript" type="text/javascript">
-
-
-
-
-
-
-
-
-</script>
-
-
-            
-      
-             
 <!-- Footer -->
     <div id="footer">
 
@@ -255,7 +236,9 @@ while($registro = mysql_fetch_assoc($listado))
 </div> <!-- /main -->
 <script src="js/jquery-1.10.2.js"></script>
 <script src="js/jquery-1.5.min.js"></script>
-
+<?php }else{
+    header("location:mainpage.php");
+}?>
 </body>
 
 </html>

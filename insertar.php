@@ -1,8 +1,8 @@
+<?php
 
-
-             <?php
-   
-               
+             $msj=" DATOS GUARDADOS EXITOSAMENTE ";
+   include("seguridad.php");
+ $id=$_SESSION["k_username"];
     include("conexion.php");
 
    if(isset($_REQUEST['inputName']) && !empty($_REQUEST['inputName'])&&     
@@ -15,10 +15,19 @@
 
 
    
-      mysql_query("INSERT INTO prueba(nombre,codigo,fecha,hora) 
-VALUES ('$_REQUEST[inputName]','$_REQUEST[text]',curdate(),curtime())",$con);
+      mysql_query("INSERT INTO prueba(nombre,codigo,fecha,hora,usuarios_id) 
+VALUES ('$_REQUEST[inputName]','$_REQUEST[text]',curdate(),curtime(),$id)",$con);
+      
 Include("newcode.php");  
-     echo "<h1> DATOS GUARDADOS EXITOSAMENTE...!!</h1>";
+     //echo "<h1> DATOS GUARDADOS EXITOSAMENTE...!!</h1>";
+echo"
+<script language='JavaScript'>
+alert('DATOS GUARDADOS EXITOSAMENTE');
+ location.href='newcode.php';
+</script>";
+
+ 
+
    }
  else
    {
