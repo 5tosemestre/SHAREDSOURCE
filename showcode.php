@@ -1,7 +1,19 @@
-<html>
 <?php
 include("seguridad.php");
+include_once("conexion.php");
+
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+$clave = "a12b34dsakcsuklmdsa";
+$id_code =$_REQUEST['id'];
+$query=sprintf("SELECT codigo from prueba WHERE MD5(concat('%s',id))='%s'",
+        mysql_real_escape_string($clave),
+        mysql_real_escape_string($id_code));
+$listado = mysql_query($query,$conexion) or die(mysql_error());   
+
+
 ?>
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -21,7 +33,7 @@ include("seguridad.php");
 
     <title>Ver C&oacute;digo</title>
      <script language="Javascript" type="text/javascript" src="edit_area/edit_area_full.js"></script>
-    <script language="Javascript" type="text/javascript">
+     <script language="Javascript" type="text/javascript">
         // initialisation
         editAreaLoader.init({
             id: "example_1" // id of the textarea to transform      
@@ -94,7 +106,6 @@ include("seguridad.php");
     
     </script>
 </head>
-
 <body>
 
 <div id="main">
@@ -107,8 +118,8 @@ include("seguridad.php");
 
         <!-- Navigation -->
         <div id="nav">
+            <span>|</span><a>Usuario: <?php echo $_SESSION['k_name'];?></a> <span>|</span>
             <a href="logout.php?cerrar"id="nav-active">Cerrar sesi&oacuten</a> <span>|</span>
-           
         </div> <!-- /nav -->
 
     </div> <!-- /header -->
@@ -118,14 +129,18 @@ include("seguridad.php");
 
         <ul>
             <li id="tray-active"><a href="mainpage.php">Bienvenidos</a></li> <!-- Active page -->
-            <li><a href="newcode.php">Nuevo C&oacutedigo</a></li>
-            <li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>
-              <li><a href="newuser.php">Nuevo Usuario</a></li>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="newcode.php">Nuevo C&oacutedigo</a></li>';}?>
+            <?php if($_SESSION['k_nam']==1){echo '<li><a href="firstConsulta.php">C&oacutedigos Guardados</a></li>';}
+            else{
+                echo'<li><a href="firstConsulta2.php">C&oacutedigos Guardados</a></li>';
+            }?>
+            
+            <?php if($_SESSION['k_nam']==1){echo '<li ><a href="newuser.php">Nuevo Usuario</a></li>';}?>
         </ul>
         
         <!-- Search -->
         <div id="search" class="box">
-            <form action="historial.php" method="get">
+            <form action="historial.php" method="POST">
                 <div class="box">
                     <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" 
 
@@ -143,31 +158,16 @@ include("seguridad.php");
     <div id="col" class="box">
 
 
-<center><form>
-   
- <div id="col-browsr"></div> 
-
-       
-      <?php
-
-include_once("conexion.php");
-$fecha=$_REQUEST['nombre'];
-$conexion= mysql_connect($host,$user,$pw);
-mysql_select_db($db,$conexion);
-
-$query="SELECT codigo FROM prueba WHERE id='$_REQUEST[nombre]'";
-$listado = mysql_query($query) or die(mysql_error());   
-
-
-while($registro = mysql_fetch_assoc($listado))
-{
-  echo "<textarea id=\"example_1\"  name=\"text\"  style=\"height: 350px; width: 100%;\">"
-   .$registro['codigo'].
-  "</textarea>";
-  
-}
-
-?>
+<center>
+    <form>
+        <div id="col-browsr"></div> 
+        <?php
+        while($registro = mysql_fetch_assoc($listado)){
+            echo "<textarea id=\"example_1\"  name=\"text\"  style=\"height: 350px; width: 100%;\">"
+            .$registro['codigo'].
+            "</textarea>";
+        }
+        ?>
    
     
     </div> <!-- /col -->
