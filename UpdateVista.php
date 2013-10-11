@@ -1,4 +1,7 @@
 <?php
+
+
+
 include("seguridad.php");
 include("conexion.php");
 
@@ -7,15 +10,9 @@ $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
 $clave = "a12b34dsakcsuklmdsa";
 $id_code =$_REQUEST['id'];
-$query=sprintf("SELECT * from prueba WHERE MD5(concat('%s',id))='%s'",
-        mysql_real_escape_string($clave),
-        mysql_real_escape_string($id_code));
+$query = "SELECT * FROM prueba WHERE MD5(concat('".$clave."',id))='".$id_code."'";
 $listado = mysql_query($query, $conexion)or die(mysql_error());   
 $registro = mysql_fetch_assoc($listado);
-//este es el que  se modifica
-//$query = "SELECT * FROM prueba WHERE MD5(concat('".$clave."',id))='".$id_code."'";
-//$listado = mysql_query($query, $conexion)or die(mysql_error());   
-//$registro = mysql_fetch_assoc($listado);
 }else{
     header("location:mainpage.php");
 }
@@ -52,11 +49,6 @@ $registro = mysql_fetch_assoc($listado);
             ,syntax: "php"
             ,syntax_selection_allow: "html,js,php,python,vb,xml,c,cpp,sql,basic,pas,brainfuck"  
         });
-        
-        
-    
-        
-        
         // callback functions
         function my_save(id, content){
             alert("Here is the content of the EditArea '"+ id +"' as received by the save callback function:\n"+content);
@@ -104,8 +96,6 @@ $registro = mysql_fetch_assoc($listado);
             editAreaLoader.openFile('example_2', new_file);
         }
         
-        
-        
         function toogle_editable(id)
         {
             editAreaLoader.execCommand(id, 'set_editable', !editAreaLoader.execCommand(id, 'is_editable'));
@@ -145,7 +135,8 @@ $registro = mysql_fetch_assoc($listado);
         <div id="search" class="box">
             <form action="historial.php" method="POST">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" 
+                        placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'"/></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
