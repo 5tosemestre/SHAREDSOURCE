@@ -1,7 +1,6 @@
 <?php
 include("seguridad.php");
 include("conexion.php");
-
 if($_SESSION['k_nam']==1){
 $valor=$_SESSION["k_username"];
 $fecha=$_REQUEST['fecha'];
@@ -74,7 +73,7 @@ $listado = mysql_query($query) or die(mysql_error());
         <div id="search" class="box">
             <form action="historial.php" method="POST">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'"/></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>

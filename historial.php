@@ -1,21 +1,16 @@
 <html>
+
+
 <?php
 include("seguridad.php");
 include_once("conexion.php");
 $conexion= mysql_connect($host,$user,$pw);
 mysql_select_db($db,$conexion);
-if (empty($_POST['ide'])){ 
-      echo "Debe introducir un id para buscar";  
-}
+$ides=$_POST['ide'];
 
 
-else{
-$cadena=sprintf("SELECT codigo FROM prueba WHERE id='%s'",
-        mysql_real_escape_string($_POST['ide']));
-$tabla = mysql_query($cadena, $conexion) or die ("problema con cadena de conexion<br><b>" . mysql_error()."</b>");
-$campos = mysql_num_rows($tabla);
-$cadena = mysql_query($cadena, $conexion);
-?>
+  ?>
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="content-language" content="en" />
@@ -145,7 +140,7 @@ $cadena = mysql_query($cadena, $conexion);
         <div id="search" class="box">
             <form action="historial.php" method="POST">
                 <div class="box">
-                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide"  placeholder="Buscar: " /></div>
+                    <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide"   placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'" /></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
@@ -163,18 +158,39 @@ $cadena = mysql_query($cadena, $conexion);
    
  <div id="col-browsr"></div> 
                       
-         <?php
-while ($campos = mysql_fetch_array($tabla)){
-    
-   echo "<textarea id=\"example_1\"  name=\"text\"  style=\"height: 350px; width: 100%;\">"
-   .$campos['codigo'].
-  "</textarea>";
-         
-   }
-
+   <?php
+include("seguridad.php");
+include_once("conexion.php");
+$conexion= mysql_connect($host,$user,$pw);
+mysql_select_db($db,$conexion);
+$ides=$_POST['ide'];
+if (empty($ides)){ 
+             include("MensajeBusquedaBlanco.php");
 }
 
-?>
+
+else
+{
+$cadena=sprintf("SELECT codigo FROM prueba WHERE id='%s'",
+        mysql_real_escape_string($ides));
+$tabla = mysql_query($cadena, $conexion); 
+if($row = mysql_fetch_array($tabla)){
+  $campos= $row['codigo'];
+
+  
+    if($campos!= ""){
+        echo "<textarea id=\"example_1\"  name=\"text\"  style=\"height: 350px; width: 100%;\">"
+   .$campos.
+  "</textarea>";}
+            
+            }else{
+        include("MensajeBusquedaError.php");
+        
+    }
+    mysql_free_result($tabla);
+}
+
+  ?>
     
     </div> <!-- /col -->
     <div id="col-bottom"></div>

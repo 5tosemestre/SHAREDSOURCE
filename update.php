@@ -12,28 +12,17 @@
   $sql.= "WHERE id=".$idcod;
 mysql_query($sql, $con);
 
-  include("UpdateVista.php");
+ // include("UpdateVista.php");
 
-     //echo "<p> Se ha actualizado correctamente</p>";
-
-  echo"
-<script language='JavaScript'>
-alert('Se ha actualizado correctamente');
- location.href='firstConsulta.php';
-</script>";
-
+  header("location:MensajeUpdate.php");
 
    }
  else
    {
    
-  include("UpdateVista.php");
-    // echo "<p>No se ha actualizado correctamente</p>";
-      echo"
-<script language='JavaScript'>
-alert('Campo no admitidos');
+  include("firstConsulta.php");
+  // echo "<p>No se ha actualizado correctamente</p>";
 
-</script>";
 
     }
 

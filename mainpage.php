@@ -61,7 +61,7 @@ include("seguridad.php");
                 <div class="box">
                     <div id="search-input">
                     <span class="noscreen">Search:</span>
-                    <input type="text" size="30" name="ide" id="ide" onfocus="this.value=''" value="Buscar" /></div>
+                    <input type="text" size="30" name="ide" id="ide"  placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'"/></div>
                      <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>

@@ -144,7 +144,7 @@ $listado = mysql_query($query,$conexion) or die(mysql_error());
                 <div class="box">
                     <div id="search-input"><span class="noscreen">Search:</span><input type="text" size="30" name="ide" 
 
-                        placeholder="Buscar: " /></div>
+                        placeholder="Buscar" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Buscar'"/></div>
                     <div id="search-submit"><input type="image" src="design/search-submit.gif" value="OK" /></div>
                 </div>
             </form>
